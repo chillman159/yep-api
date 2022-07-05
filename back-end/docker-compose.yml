@@ -1,0 +1,34 @@
+version: '2.2'
+
+services:
+  server:
+    build: .
+    ports:
+      - '3001:3000'
+    environment: 
+      - POSTGRES_HOST=db
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PWD=postgres
+      - POSTGRES_DBNAME=chargeasy
+      - POSTGRES_PORT=5432
+      - POSTGRES_DIALECT=postgres
+      - NODE_ENV=development
+    depends_on: 
+      - db
+
+  db:
+    image: 'postgres'
+    ports:
+      - '5434:5432'
+    volumes: 
+      - ./postgresql:/var/lib/postgresql
+    # environment:
+    #   - DEBUG=false
+    #   - DB_USER=postgres
+    #   - DB_PASS=wesker
+    #   - DB_NAME=FlatPartnerDBAuth
+    environment:
+     POSTGRES_PASSWORD: 'postgres'
+     POSTGRES_USER: 'postgres'
+     POSTGRES_DB: chargeasy
+     
